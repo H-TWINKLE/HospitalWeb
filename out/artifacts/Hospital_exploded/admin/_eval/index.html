@@ -1,0 +1,61 @@
+#@_layout() #define _main()
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<header class="panel-heading"> 用户评价 </header>
+			<table class="table table-striped border-top" id="sample_1">
+				<thead>
+					<tr>
+						<th style="width: 8px;"><input type="checkbox"
+							class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+						<th>评价分数</th>
+						<th class="hidden-phone">被评价医生</th>
+						<th class="hidden-phone">评价的用户</th>
+						<th class="hidden-phone">创建时间</th>
+						<th class="hidden-phone">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					#for(l:list??)
+					<tr class="odd gradeX">
+						<td><input type="checkbox" class="checkboxes" value="1" /></td>
+						<td>#(l.score??)</td>
+						<td>#(l.doctor.nickname??)</td>
+						<td>#(l.author.nickname??)</td>
+						<td>#date(l.createdAt)</td>
+						<td class="hidden-phone"><a data-toggle="modal"
+							href="#myModal#(for.count)"><span class="label label-success">查看评价</span></a>
+							<a href="#(base)/eval/delete?id=#(l.objectId??)"><span
+								class="label label-danger">删除</span></a></td>
+					</tr>
+					
+					<div class="modal fade" id="myModal#(for.count)" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">评价内容 </h4>
+								</div>
+								<div class="modal-body">#(l.content??)</div>
+								<div class="modal-footer">
+									<button class="btn btn-danger" type="button">好的</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					#end
+
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
+
+
+#end

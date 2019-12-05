@@ -1,0 +1,147 @@
+#@_layout() #define _main()
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<header class="panel-heading"> 就诊情况 </header>
+			<table class="table table-striped border-top" id="sample_1">
+				<thead>
+					<tr>
+						<th style="width: 8px;"><input type="checkbox"
+							class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+						<th>进度</th>
+						<th class="hidden-phone">医生</th>
+						<th class="hidden-phone">用户</th>
+						<th class="hidden-phone">创建时间</th>
+						<th class="hidden-phone">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					#for(l:list??)
+					<tr class="odd gradeX">
+						<td><input type="checkbox" class="checkboxes" value="1" /></td>
+						<td><font color="red">#(l.progress??)</font></td>
+						<td>#(l.doctor.nickname??)</td>
+						<td>#(l.user.nickname??)</td>
+						<td>#date(l.createdAt)</td>
+						<td class="hidden-phone">
+						
+						#if(session.user.plate==2&&!l.content??)
+						<a data-toggle="modal"
+							href="#myModalA#(for.count)"><span class="label label-success">填写就诊情况</span></a>
+						#else
+						<a data-toggle="modal"
+							href="#myModalB#(for.count)"><span class="label label-success">查看就诊情况</span></a>
+						#end
+						
+						#if(l.eval??)
+						<a data-toggle="modal"
+							href="#myModalC#(for.count)"><span class="label label-success">查看患者评论</span></a>
+						#end
+						
+						#if(session.user.plate==2)
+						<a data-toggle="modal"
+							href="#myModalD#(for.count)"><span class="label label-success">填写就诊进度</span></a>
+						#end
+							
+						<a href="#(base)/seek/delete?id=#(l.objectId??)"><span
+								class="label label-danger">删除</span></a>
+					    </td>
+					</tr>
+					
+					<div class="modal fade" id="myModalA#(for.count)" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">填写就诊情况</h4>
+								</div>
+								<form action="#(base)/seek/add" method="post">
+									<div class="modal-body">
+										<input value="#(l.objectId??)" name="id" hidden="">
+										<div class="form-group">
+											<textarea rows="4" type="text" class="form-control"
+												name="what"></textarea>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-danger" type="submit">回复</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal fade" id="myModalB#(for.count)" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">就诊情况 </h4>
+								</div>
+								<div class="modal-body">#(l.content??)</div>
+								<div class="modal-footer">
+									<button class="btn btn-danger" type="button">好的</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal fade" id="myModalC#(for.count)" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">患者评论</h4>
+								</div>
+								<div class="modal-body">#(l.eval??)</div>
+								<div class="modal-footer">
+									<button class="btn btn-danger" type="button">好的</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal fade" id="myModalD#(for.count)" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">填写就诊进度</h4>
+								</div>
+								<form action="#(base)/seek/add" method="post">
+									<div class="modal-body">
+										<input value="#(l.objectId??)" name="id" hidden="">
+										<div class="form-group">
+											<textarea rows="4" type="text" class="form-control"
+												name="progress">#(l.progress??)</textarea>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-danger" type="submit">回复</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+
+					#end
+
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
+
+
+#end

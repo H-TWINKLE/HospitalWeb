@@ -1,0 +1,122 @@
+#@_layout() #define _main()
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<header class="panel-heading"> 意见反馈</header>
+			<table class="table table-striped border-top" id="sample_1">
+				<thead>
+					<tr>
+						<th style="width: 8px;"><input type="checkbox"
+							class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+						<th class="hidden-phone">已读</th>
+						<th class="hidden-phone">用户</th>
+						<th class="hidden-phone">管理员</th>
+						<th class="hidden-phone">创建时间</th>
+						<th class="hidden-phone">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					#for(l:list??)
+					<tr class="odd gradeX">
+						<td><input type="checkbox" class="checkboxes" value="1" /></td>
+						<td>#if(l.replay??)已读#else <font color="red">未读</font> #end</td>
+						<td>#(l.user.nickname??)</td>
+						<td>#(l.admin.nickname??)</td>
+						<td>#date(l.createdAt)</td>
+						<td class="hidden-phone">
+						#if(l.replay??)
+						<a data-toggle="modal"
+							href="#myModalA#(for.count)"><span class="label label-success">查看回复</span></a>
+						#else
+						<a data-toggle="modal"
+							href="#myModalC#(for.count)"><span class="label label-success">进行回复</span></a>
+						#end
+						
+						
+						<a data-toggle="modal"
+							href="#myModalB#(for.count)"><span class="label label-success">查看反馈</span></a>
+													
+							
+						<a href="#(base)/feedback/delete?id=#(l.objectId??)"><span
+								class="label label-danger">删除</span></a>
+								
+						</td>
+					</tr>
+					
+					<div class="modal fade" id="myModalA#(for.count)" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">回复 </h4>
+								</div>
+								<div class="modal-body">#(l.replay??)</div>
+								<div class="modal-footer">
+									<button class="btn btn-danger" type="button">好的</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="modal fade" id="myModalB#(for.count)" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">反馈 </h4>
+								</div>
+								<div class="modal-body">#(l.content??)</div>
+								<div class="modal-footer">
+									<button class="btn btn-danger" type="button">好的</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="modal fade" id="myModalC#(for.count)" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">进行回复</h4>
+								</div>
+								<form action="#(base)/feedback/add" method="post">
+									<div class="modal-body">
+										<input value="#(l.objectId??)" name="id" hidden="">
+
+										<div class="form-group">
+
+											<textarea rows="4" type="text" class="form-control"
+												name="what"></textarea>
+
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-danger" type="submit">回复</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+
+					#end
+
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
+
+
+#end

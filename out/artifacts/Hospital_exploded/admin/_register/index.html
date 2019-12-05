@@ -1,0 +1,76 @@
+#@_layout() #define _main()
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<header class="panel-heading"> 挂号信息 </header>
+			<table class="table table-striped border-top" id="sample_1">
+				<thead>
+					<tr>
+						<th style="width: 8px;"><input type="checkbox"
+							class="group-checkable" data-set="#sample_1 .checkboxes" /></th>
+						<th>进度</th>
+						<th class="hidden-phone">部门</th>
+						<th class="hidden-phone">用户</th>
+						<th class="hidden-phone">创建时间</th>
+						<th class="hidden-phone">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					#for(l:list??)
+					<tr class="odd gradeX">
+						<td><input type="checkbox" class="checkboxes" value="1" /></td>
+						<td><font color="red">#(l.progress??)</font></td>
+						<td>#(l.department.name??)</td>
+						<td>#(l.user.nickname??)</td>
+						<td>#date(l.createdAt)</td>
+						<td class="hidden-phone">
+						
+						<a data-toggle="modal"
+							href="#myModalC#(for.count)"><span class="label label-success">填写挂号进度</span></a>
+						
+						<a href="#(base)/guahao/delete?id=#(l.objectId??)"><span
+								class="label label-danger">删除</span></a></td>
+					</tr>
+					
+					
+					<div class="modal fade" id="myModalC#(for.count)" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+									<h4 class="modal-title">进行回复</h4>
+								</div>
+								<form action="#(base)/guahao/add" method="post">
+									<div class="modal-body">
+										<input value="#(l.objectId??)" name="id" hidden="">
+
+										<div class="form-group">
+
+											<textarea rows="4" type="text" class="form-control"
+												name="what">#(l.progress??)</textarea>
+
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button class="btn btn-danger" type="submit">回复</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>	
+
+					#end
+
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
+
+
+#end

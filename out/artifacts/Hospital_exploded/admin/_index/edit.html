@@ -1,0 +1,59 @@
+#@_layout() #define _main()
+
+
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<header class="panel-heading"> 医院信息修改 </header>
+			<div class="panel-body">
+				<form class="form-horizontal tasi-form" method="post" enctype="multipart/form-data"
+					action="#(base)/update">
+
+					<input hidden="" name="val" value="#(h.objectId??)">
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">医院名字</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" value="#(h.name??)"
+								name="h.name">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">医院位置</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" value="#(h.place??)"
+								name="h.place">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">医院描述</label>
+						<div class="col-sm-10">
+							<textarea rows="4" type="text" class="form-control" name="h.auto">#(h.auto??)</textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">医院图片</label>
+						<div class="col-sm-10">
+							<input type="file" name="pic">
+							<p class="help-block" style="margin-bottom: 20px;">这里是你的医院的图片.</p>
+							<img alt="" src="#(h.pic??)" width="50%">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2"></label>
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-success">提交</button>
+						</div>
+					</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+
+
+#end
